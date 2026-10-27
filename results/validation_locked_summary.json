@@ -1,0 +1,61 @@
+{
+  "status": "validation_sanity",
+  "n_full": 768,
+  "n_primary": 768,
+  "n_family": 18,
+  "n_candidates": 768,
+  "primary_metric": "strict_silver_R@1; ties incorrect",
+  "baseline_correct": 725,
+  "baseline_R1": 0.9440104166666666,
+  "variants": [
+    {
+      "k": 3,
+      "role": "primary",
+      "correct": 734,
+      "r1": 0.9557291666666666,
+      "fixes": 15,
+      "breaks": 6,
+      "net_count": 9,
+      "delta_r1": 0.01171875,
+      "mcnemar_exact_two_sided_p": 0.0783538818359375,
+      "family_bootstrap_delta_r1_95pct": [
+        0.0012814070351758796,
+        0.020747246909503362
+      ],
+      "bootstrap_reps": 5000
+    },
+    {
+      "k": 5,
+      "role": "sensitivity",
+      "correct": 735,
+      "r1": 0.95703125,
+      "fixes": 15,
+      "breaks": 5,
+      "net_count": 10,
+      "delta_r1": 0.01302083333333337,
+      "mcnemar_exact_two_sided_p": 0.04138946533203125,
+      "family_bootstrap_delta_r1_95pct": [
+        0.0016666666666666668,
+        0.022975999413726116
+      ],
+      "bootstrap_reps": 5000
+    },
+    {
+      "k": 10,
+      "role": "posthoc_exploratory",
+      "correct": 737,
+      "r1": 0.9596354166666666,
+      "fixes": 15,
+      "breaks": 3,
+      "net_count": 12,
+      "delta_r1": 0.015625,
+      "mcnemar_exact_two_sided_p": 0.007537841796875,
+      "family_bootstrap_delta_r1_95pct": [
+        0.004297687269750307,
+        0.025223124175444575
+      ],
+      "bootstrap_reps": 5000
+    }
+  ],
+  "note": "k3 primary, k5 sensitivity, k10 posthoc; never choose k on test"
+}

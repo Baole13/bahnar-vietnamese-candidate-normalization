@@ -1,0 +1,77 @@
+\section{Sensitivity Notes}\label{app:explore}
+The Sinkhorn figures in Section~\ref{sec:diagnostics} come from an archived 10-iteration, alternating row/column procedure whose exact marginal orientation was not recovered; retrospective reconstructions give identical top-1 counts across the variants we tried, but the 770/781 value is not an independently reproduced result. Query-fraction means (fusion / $k=3$ / Inv.\ $\beta=2$ / Sinkhorn $\beta=5$) are, in \%: 100\%: 94.62/95.90/97.18/98.59; 50\%: 94.56/95.84/97.10/95.52; 10\%: 94.58/95.90/97.26/94.67 (200 overlapping draws per partial fraction; all grid points and the full temperature scan were chosen after test access).
+
+\paragraph{Neural training-score sensitivity.} E1 was adapted to the same 3,327 training pairs that also serve as density-reference queries. Post hoc five-fold, family-held-out E1$'$ models improved their own baselines by 13--21 queries at $k=3$, but E1$'$ differs appreciably from E1, so this cannot show the absence of an in-sample effect; a same-model cross-fitted reference would be needed.
+
+\section{Per-Family Results}\label{app:family}
+Table~\ref{tab:family} gives strict R@1 counts per document family for the pre-specified $k=3$ correction (families anonymized, ordered by size): ten improve, eight are unchanged and two decline.
+\begin{table}[h]
+\centering\scriptsize
+\caption{Fusion and $k=3$ correct counts per held-out family.}
+\label{tab:family}
+\begin{tabular}{lrrrr|lrrrr}
+\toprule
+Fam. & $n$ & Fus. & $k=3$ & Net & Fam. & $n$ & Fus. & $k=3$ & Net \\
+\midrule
+F01&92&87&85&-2 & F11&31&30&30&+0 \\
+F02&88&84&87&+3 & F12&31&31&30&-1 \\
+F03&64&61&61&+0 & F13&31&29&30&+1 \\
+F04&54&52&53&+1 & F14&31&30&30&+0 \\
+F05&37&35&36&+1 & F15&30&25&26&+1 \\
+F06&35&35&35&+0 & F16&29&27&27&+0 \\
+F07&34&32&33&+1 & F17&26&26&26&+0 \\
+F08&33&31&32&+1 & F18&25&22&23&+1 \\
+F09&33&30&31&+1 & F19&23&21&21&+0 \\
+F10&33&30&32&+2 & F20&21&21&21&+0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{IBM1 Same-Pool Baseline}\label{app:ibm1}
+The publicly selected IBM1 symmetric configuration of Nguyen et al.~\cite{nguyen2026parallelretrieval} was run in a new, explicitly retrospective fit on our 55,324 historical pairs. It does not reuse the external study's model weights or its 46,736-pair split. We trained forward and backward co-occurrence-initialized translation tables for five EM iterations and scored all 781$\times$780 pairs, preserving the single shared Vietnamese gold candidate. Query/candidate IDs were joined to the frozen score matrices. Table~\ref{tab:ibm1} uses tie-conservative strict ranks and full-pool MRR throughout.
+\begin{table}[h]
+\centering\small
+\caption{Within-BA48 comparison, including post-hoc IBM1. Metrics share identical candidate IDs.}
+\label{tab:ibm1}
+
+\begin{tabular}{lrrrr}
+\toprule
+System & R@1 & R@5 & R@10 & MRR \\
+\midrule
+IBM1 forward & .3764 & .5211 & .5762 & .4467 \\
+IBM1 symmetric & .5186 & .6261 & .6748 & .5701 \\
+Dice & .8143 & .9104 & .9321 & .8565 \\
+Char TF--IDF & .8131 & .8758 & .8937 & .8427 \\
+E1 & .8131 & .9052 & .9296 & .8578 \\
+Fusion & .9462 & .9757 & .9808 & .9600 \\
+Fusion + $k=3$ & .9590 & .9808 & .9834 & .9690 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+IBM1 symmetric fixes nine silver-reference errors of the corrected fusion but loses 353 queries it retrieves correctly.
+
+\section{Cross-Corpus Overlap and Decontamination Audit}\label{app:corpus}
+\paragraph{Method.} We cross-linked BA48's 5,094-row registry, the 55,324-pair historical dataset and the checksum-verified 2,001-query external test with exact rules (NFC/casefold, punctuation-insensitive, accent-folded) on whole pairs and single sides, plus same-record near-duplicate screening at 90\% and 95\% character similarity. Counts are of external queries matching at least one historical record and cannot be summed across categories.
+\begin{table}[h]
+\centering\small
+\caption{Post-hoc overlap of the 2,001 external queries with the historical pairs. Exact one-sided sets overlap.}
+\label{tab:corpus}
+
+\begin{tabular}{lr}
+\toprule
+Rule & Queries matching historical \\
+\midrule
+Strict exact bilingual & 67 \\
+Strict exact Bahnar side & 118 \\
+Strict exact Vietnamese side & 541 \\
+Punctuation-insensitive bilingual exact & 284 \\
+Bilingual punctuation exact OR near $\geq90\%$ & 356 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+No bilingual or single-side exact matches were observed between any BA48 split and the historical set under the three normalizations, or between BA48's training reservoir, validation and test; same-record two-sided near $\geq90\%$ screening also returned zero between the external test and BA48. The external overlap with historical does \emph{not} imply leakage in the other study's own train/test split. The E1 auxiliary dataset comprises 50,283 of the historical pairs but its exact membership manifest was not available; consequently historical overlap cannot all be assigned to E1. Conditional query-level bounds, using the known historical exclusion partition, are 0--37 for strict-exact bilingual matches and 201--243 for punctuation-insensitive bilingual matches; these are not independently verified exact membership counts. The original 53,610-pair E1 training manifest is required to resolve them.
+
+\section{Archival Provenance and Reproducibility}\label{app:provenance}
+The access log has 170 PDF URL records, 169 with a syntactically valid recorded SHA-256 (hashes checked for syntax and URL linkage, not re-hashed); one 32-page file failed parsing (four BA48 pairs). Forty-eight page snippets contain production-imprint patterns that do not establish masthead identity without page images. The font tables, silver alignment procedure, E1 optimizer and exact dependency versions were not fully recovered, so end-to-end encoder reproduction remains outstanding.

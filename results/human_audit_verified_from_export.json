@@ -1,0 +1,21 @@
+{
+  "labels_total": 176,
+  "items": 88,
+  "labels_identical_on_items": 88,
+  "confidence_differences": 7,
+  "controls_yes": 60,
+  "controls_no": 10,
+  "strict": {
+    "fix": 13,
+    "reg": 5
+  },
+  "strict_exact_mcnemar": 0.09625244140625,
+  "lenient": {
+    "fix": 13,
+    "tie": 2,
+    "reg": 3
+  },
+  "lenient_exact_mcnemar": 0.021270751953125,
+  "silver_reference_usable_of_18": 17,
+  "scope": "CSV aggregate audit; no proof of human provenance or independent collection"
+}

@@ -1,0 +1,38 @@
+% ACIIDS 2027 submission (Springer LNCS/LNAI style).
+% Compile with the official Springer class: put llncs.cls and splncs04.bst
+% (from https://www.springernature.com/gp/computer-science/lncs/conference-proceedings-guidelines
+% or Overleaf's "Springer LNCS" template) in this folder, then:
+%   pdflatex main; bibtex main; pdflatex main; pdflatex main
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,booktabs,array,graphicx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{url}
+\renewcommand\UrlFont{\color{black}\rmfamily}
+\newcommand{\repourl}{\url{https://github.com/Baole13/bahnar-vietnamese-candidate-normalization}}
+\begin{document}
+\title{When Does Candidate Normalization Help? A Low-Resource Bahnar--Vietnamese Sentence Retrieval Study}
+\titlerunning{Candidate Normalization for Bahnar--Vietnamese Retrieval}
+% Fill in before submission. Check the ACIIDS 2027 call on whether review is anonymous.
+\author{First Author\inst{1}\orcidID{0000-0000-0000-0000}}
+\authorrunning{F. Author}
+\institute{Affiliation, City, Country\\\email{author@example.org}}
+\maketitle
+\begin{abstract}
+We study inference-time candidate-density normalization for Bahnar-to-Vietnamese sentence retrieval on BA48, a journalistic, silver-aligned benchmark (781 held-out queries, 780 candidates, 20 document families). A locked fusion of a Dice translation table, character TF--IDF and a neural bi-encoder reaches 739/781 strict Recall@1. A pre-specified CSLS-style correction whose candidate-density term is estimated from 3,327 \emph{training} queries raises this to 749/781 (14 corrections, four regressions; exact McNemar $p=0.031$; family-bootstrap 95\% interval $[+0.12,+2.44]$ points), and points the same way on a separate 768-query validation split. Train-derived corrections are stable when the number of evaluated queries shrinks, whereas transductive Sinkhorn balancing falls from 98.6\% to 94.7\% at 10\% query coverage. A train-derived Inverted Softmax whose temperature is chosen on validation scores higher (759/781) but is sharply peaked in that temperature, and it was added after test access. A blinded check by two Bahnar native speakers agrees with the silver labels on 17 of 18 discordant queries and on 60 of 60 random controls. A same-pool IBM1 baseline and a cross-corpus overlap audit clarify the lexical alternatives and data-independence limits. The contribution is a controlled empirical analysis of established normalizations, not a new algorithm or a claim of semantic gold accuracy.
+\keywords{Bahnar \and Cross-lingual sentence retrieval \and Low-resource languages \and Hubness \and CSLS \and Evaluation validity.}
+\end{abstract}
+\input{sections/01_intro_related}
+\input{sections/02_data}
+\input{sections/03_method}
+\input{sections/04_results}
+\input{sections/04a_robust}
+\input{sections/04b_human}
+\input{sections/05_conclusion_limitations}
+\bibliographystyle{splncs04}
+\bibliography{references}
+\appendix
+\input{sections/99_appendix}
+\end{document}

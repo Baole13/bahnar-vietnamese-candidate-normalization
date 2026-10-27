@@ -1,0 +1,26 @@
+\section{Scorers and Normalization}\label{sec:methods}
+For Bahnar query $q$ and Vietnamese candidate $c$, every model assigns a score $S(q,c)$ within the same 780-candidate index. The original baseline is fixed prior to the test comparison.
+
+\paragraph{Lexical and neural channels.} Dice is a sentence-co-occurrence bilingual table fitted on 55,324 historical pairs: for token pair $(b,v)$ it uses $2C(b,v)/(\mathrm{df}(b)+\mathrm{df}(v))$, retaining co-occurrence $\geq2$, document frequency $\geq2$, and the five highest-scored translations per Bahnar token; the table is row-normalized. Token-level IDF vectors are projected through it and compared by cosine. Character TF--IDF uses \texttt{char\_wb} 3--5-grams, \texttt{min\_df}=2 and sublinear term frequencies, fitted on historical text only. These two scorers apply Unicode NFC, lowercasing, Bahnar/Latin character folding and stripping of combining diacritics; this sacrifices some tonal and orthographic distinctions. The neural E1 bi-encoder is initialized from \texttt{paraphrase-multilingual-}\allowbreak\texttt{MiniLM-L12-v2}; its archived step-600 checkpoint was selected on 768 validation queries and contributes cosine scores. The original training log records batch size 16, learning rate $2\cdot 10^{-5}$, temperature 0.05 and seed 20261017. The test neural scores were recovered from archived score matrices, not reproduced by a fresh checkpoint-inference run.
+
+\paragraph{Frozen equal-weight fusion.} Let $D,H,N$ denote Dice, character and neural score matrices. Row normalization over all candidates is
+\begin{align}
+Z(S)_{qc} &= \frac{S_{qc}-\mu_q(S)}{\sigma_q(S)+10^{-9}},\nonumber\\
+F(q,c) &= \frac13\sum_{A\in\{D,H,N\}}Z(A)_{qc}.
+\label{eq:fusion}
+\end{align}
+No fusion weights are fitted on test. Because row statistics depend on the candidate set, this score assumes a fixed index when comparing query batches.
+
+\paragraph{Train-derived candidate calibration.} Score all 3,327 BA48 training queries against the \emph{same} Vietnamese test-candidate index, obtaining the training-reference fusion $F_{\mathrm{tr}}$. For candidate $c$, define
+\begin{equation}
+\begin{aligned}
+ d_k(c)&=\frac1k\sum_{t\in\operatorname{TopK}_k(Q_{\mathrm{tr}};c)}F_{\mathrm{tr}}(t,c),\\[-1mm]
+ F_k'(q,c)&=2F(q,c)-d_k(c).
+\end{aligned}
+\label{eq:density}
+\end{equation}
+The query-side CSLS term is constant across the candidates of one query and therefore irrelevant to ranking. Eq.~\ref{eq:density} is a known CSLS-style correction under a particular reference-set convention, \emph{not a proposed new algorithm}. Crucially, $d_k$ depends on training queries and the current candidate index, not the unlabeled \emph{test-query batch}; changing the index still requires recomputation. $k=3$ was locked as the primary contrast and $k=5$ as its sensitivity; $k=10$ was examined on validation but excluded from confirmatory inference.
+
+\paragraph{Strict evaluation and uncertainty.} Recall@1 counts a hit only if the designated silver-reference score is \emph{strictly above} every other candidate; ties count as errors. Recall@5/10 and reciprocal rank use the same candidate IDs. We compute a two-sided exact paired McNemar test from corrected-only versus baseline-only hits. A 5,000-replicate bootstrap resamples the 20 held-out document families and recomputes the query-weighted paired R@1 difference. The latter is conditional on these graph-derived families; McNemar's query-level test does not itself model within-family dependence. The held-out contrast was frozen in an internal protocol with hashes, not public preregistration.
+
+\paragraph{Exploratory normalizations.} Following test access, we examined Inverted Softmax with training-reference columns, $\beta F(q,c)-\log\sum_{t\in Q_{\mathrm{tr}}}\exp(\beta F(t,c))$, and 10-step log-domain Sinkhorn balancing of the evaluated \emph{test-query-by-candidate} matrix $\exp(\beta F)$. Settings $\beta\in\{0.5,1,2,5,10\}$ were scanned; maxima selected on the test are post hoc, and Section~\ref{sec:robust} reports settings selected on validation. The original Sinkhorn marginal conventions and exact script were not recovered, and retrospective reconstructions reveal some top-1 identity sensitivity; its author-reported figures must therefore be interpreted cautiously.

@@ -1,0 +1,22 @@
+{
+  "checkpoint_step": 600,
+  "max_E09_validation_neural_abs_difference": 0.00024437904357910156,
+  "train_query_count": 3327,
+  "test_query_count": 781,
+  "test_candidate_count": 780,
+  "validation_query_count": 768,
+  "validation_candidate_count": 768,
+  "embedding_dimension": 384,
+  "train_candidate_ids_sha256": "bfae76543abbd02dc69ce8c2fbfbe1d3ca3f1ae241ee7c3623e2c2f8bb6890a9",
+  "train_query_ids_sha256": "03e72ab17306b7de3e51a4fd7e7feb421f499a7c2f73711fe18e8351463556c9",
+  "test_query_ids_sha256": "ca1843f9edd0ed77184b1aff181373cd4cfd4acb8d1bfba81db591cfd8c46680",
+  "test_gold_read": false,
+  "retrieval_metrics_calculated": false,
+  "exported_npz": [
+    "train_TESTpool.npz",
+    "TEST_scores.npz",
+    "train_VALpool.npz",
+    "VAL_scores.npz"
+  ],
+  "checkpoint_directory_redacted": "Local-only path removed from public manifest"
+}

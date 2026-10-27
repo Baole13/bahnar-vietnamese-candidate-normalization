@@ -1,0 +1,25 @@
+\section{Native-Speaker Spot Check}\label{sec:human}
+This check was added after the primary result was frozen; it is not part of the locked protocol. Two Bahnar native speakers who agreed to take part labelled 88 items independently, each on a separate copy of one form: 18 queries on which the fixed baseline and the corrected system chose different candidates (14 counted as fixes and four as regressions by the silver reference), 60 randomly drawn non-discordant pairs, and 10 deliberately mismatched attention pairs. For the discordant queries, the two candidates were shown in a random order without indication of which system produced them, and each was labelled VALID, PARTIAL, INVALID or UNCERTAIN; controls were labelled YES, NO or UNCERTAIN. Reviewers could consult the source PDF but were told to judge the sentence pair itself.
+
+\paragraph{Agreement.} The two reviewers gave the same label on all 88 items (Wilson 95\% lower bound 0.96). Their free-text reconstructions of the ten attention pairs differ (mean token-overlap $F_1$ 0.76), and their confidence scores differ on 7 of 88 items. The labels are easy for most items, so almost no label varies; we therefore report raw agreement and no chance-corrected statistic, and no third-party adjudication was needed.
+
+\paragraph{Discordant pairs.} The silver reference was judged usable (VALID or PARTIAL) for 17 of the 18 queries (Wilson 95\% interval 0.74--0.99). Of the 14 queries counted as fixes, 13 were confirmed (corrected candidate VALID, baseline INVALID); one was judged the other way. Of the four counted as regressions, two were confirmed (corrected INVALID, baseline VALID) and two had a PARTIAL corrected candidate. Counting only VALID as correct, the net gain on these 18 queries is $13-5=+8$; counting VALID and PARTIAL as correct it is $13-3=+10$, equal to the silver count (Table~\ref{tab:human}).
+
+\begin{table}[t]
+\centering\small
+\caption{Reviewer-confirmed outcomes on the 18 discordant queries (both reviewers gave identical labels). Strict counts only VALID as correct; lenient counts VALID and PARTIAL.}
+\label{tab:human}
+\begin{tabular}{lrrr}
+\toprule
+ & Silver & Strict & Lenient \\
+\midrule
+Corrected system better & 14 & 13 & 13 \\
+Baseline better & 4 & 5 & 3 \\
+Tie / not decisive & 0 & 0 & 2 \\
+\midrule
+Net gain on 18 queries & +10 & +8 & +10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Controls.} Both reviewers marked all 60 random non-discordant pairs as equivalent (Wilson lower bound 0.94) and all 10 mismatched attention pairs as not equivalent. These checks suggest that the silver labels are mostly sound on this sample; they do not estimate label error on the full 781-query test set, and 60 pairs cannot rule out an error rate of several percent.

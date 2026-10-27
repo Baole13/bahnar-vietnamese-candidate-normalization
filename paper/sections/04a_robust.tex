@@ -1,0 +1,23 @@
+\section{Robustness and Validation Selection}\label{sec:robust}
+\paragraph{Sensitivity to $k$ and rank metrics.} Table~\ref{tab:grid} shows that every $k$ from 1 to 10 improves on the 739/781 baseline (749--752 correct, exact McNemar $p$ between 0.001 and 0.031), so the result does not hinge on the pre-specified $k=3$; these are post hoc comparisons of one method family without multiplicity correction. The correction mainly moves queries into first place: R@5 rises from 762 to 766 and R@10 from 766 to 768 of 781, and MRR from 0.9600 to 0.9690 ($k=3$).
+
+\paragraph{Per-family consistency.} Ten of the 20 test families gain, eight are unchanged and two lose (per-family counts are in the released analysis files). The two losing families lose two and one queries; the largest gain is three queries in a single 88-sentence family. With 20 families the cluster bootstrap interval is wide.
+
+\paragraph{Validation replication.} The validation split (768 queries and candidates, 18 families) was scored with the same frozen pipeline before the test comparison, with the density term estimated from the same training queries. Table~\ref{tab:valid} shows the same direction on validation for the three values of $k$ examined there. Validation also chose the encoder checkpoint, so the validation baseline is itself slightly optimistic, and this split is not a clean replication.
+
+\begin{table}[t]
+\centering\small
+\caption{Validation split (768 queries): same pipeline and training-query density term. Baseline 725/768.}
+\label{tab:valid}
+\begin{tabular}{rrrrc}
+\toprule
+$k$ & Correct & Fix/break & $p$ & 95\% interval (points) \\
+\midrule
+3 & 734 & 15/6 & 0.078 & $[+0.13,+2.07]$ \\
+5 & 735 & 15/5 & 0.041 & $[+0.17,+2.30]$ \\
+10 & 737 & 15/3 & 0.0075 & $[+0.43,+2.52]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Validation-selected settings.} We also scored the 3,327 training queries against the 768 validation candidates (the lexical scores reproduce the archived validation matrices exactly) and applied the same train-derived rules there. Validation R@1 (baseline 725/768) for the train-derived correction rises from 730 at $k=1$ through 734 ($k=3$) and 735 ($k=5$) to 737 at $k=10$, and is 727, 731, \textbf{736}, 727 and 722 for Inverted Softmax at $\beta=0.5,1,2,5,10$. Selecting the best setting of each family on validation alone gives $k=10$ and $\beta=2$; applied once to the test, they give 752/781 (+14/$-$1, $p=0.001$, family-bootstrap interval $[+0.59,+2.76]$ points) and 759/781 (+20/$-$0, $p<0.001$); the locked primary contrast nevertheless remains $k=3$. The validation curve has the same peak at $\beta=2$ as the test curve, which supports the pattern in Table~\ref{tab:grid} as a property of the method and not of the test sample. Two limits remain: Inverted Softmax and the $\beta$ grid were first examined after test access, so the choice of candidate methods is not blind, and the transductive Sinkhorn results were not validated because its original marginal specification could not be recovered.

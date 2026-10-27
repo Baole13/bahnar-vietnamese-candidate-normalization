@@ -1,0 +1,24 @@
+\section{Data and Evaluation Integrity}\label{sec:data}
+\paragraph{BA48.} BA48 contains 5,094 automatically aligned Vietnamese--Bahnar sentence pairs associated with 170 \emph{Bao anh Gia Lai} PDF URLs in the Bao Gia Lai archive \cite{baogialai2023thousand,baogialai2012translation}. The publication describes translating Vietnamese journalism into Bahnar; the evaluated retrieval direction is Bahnar query $\rightarrow$ Vietnamese candidate, against that presumed editorial direction. The corpus does not identify dialects for individual texts. The source flags indicate legacy-font decoding and automatic alignment, but the original conversion map, alignment software and item-level human quality-control decisions could not be recovered. Thus all train, validation and test labels are \emph{silver}, not adjudicated gold.
+
+\begin{table}[t]
+\centering\small
+\caption{BA48 evaluation partitions. Families are connected components in a cross-PDF near-duplicate graph, not editorial article labels.}
+\label{tab:splits}
+
+\begin{tabular}{lrrr}
+\toprule
+Split & Sentence pairs & Families & PDFs \\
+\midrule
+Train (after quarantine) & 3,327 & 69 & 119 \\
+Validation & 768 & 18 & 25 \\
+Test & 781 & 20 & 26 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+BA48 was partitioned by near-duplicate-connected PDF families (107 components over 170 PDFs); the largest contains 51 PDFs. The training reservoir had 3,545 rows, from which 218 were quarantined for near-overlap with held-out material or a reserved source holdout. Validation and test were unchanged. The candidate pool consists of \emph{780 unique} Vietnamese test strings: two Bahnar queries share the same designated candidate. All evaluation operations use explicit query and candidate identifiers, not row-diagonal indices. The original fixed-pool setting assumes every query has a designated candidate and does not test no-match retrieval.
+
+\paragraph{Distinct fitting sources.} Dice and character TF--IDF are fitted exclusively on a historical file of 55,324 unique parallel pairs. The E1 multilingual encoder had instead been trained on 50,283 historical auxiliary pairs plus the 3,327 BA48 adaptation-training pairs (53,610 total), with validation used for checkpoint selection. The 50,283 auxiliary pairs are a subset of the historical file. The fact that BA48 training is included in E1 makes E1's training-query scores \emph{in-sample} for the density estimator, although BA48 validation/test queries were not used for E1 adaptation. These supervision differences must remain explicit when comparing neural and lexical methods.
+
+\paragraph{Overlap checks.} A rerun fingerprint compared all 5,094 BA48 records with the 55,324 historical pairs and the training reservoir with validation and test. No exact one-sided or bilingual overlap was found under NFC/case-folding, punctuation-insensitive or accent-folded matching. Exact lexical separation does not rule out paraphrases, shared document origins or alignment errors. A separate audit of the 2,001-query public test of Nguyen et al.~\cite{nguyen2026parallelretrieval} against the historical file finds sizeable overlap (e.g., 67 exact bilingual matches, 541 one-sided Vietnamese matches), so that test cannot be called prospectively independent of the historical data used here; details are in Appendix~\ref{app:corpus}. These are measurements of cross-corpus reuse, not claims about leakage in the other study's own experiment.
