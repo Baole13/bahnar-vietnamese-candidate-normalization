@@ -2,18 +2,19 @@ cff-version: 1.2.0
 message: "If you use this research artifact, please cite it as below."
 title: "When Does Candidate Normalization Help? A Low-Resource Bahnar--Vietnamese Sentence Retrieval Study"
 version: "1.0.0"
-doi: "10.5281/zenodo.pending"
 authors:
   - family-names: "Le"
     given-names: "Bao"
+  - name: "E11 Research Contributors"
 url: "https://github.com/Baole13/bahnar-vietnamese-candidate-normalization"
 repository-code: "https://github.com/Baole13/bahnar-vietnamese-candidate-normalization"
-date-released: "2026-10-27"
+date-released: "2026-10-29"
 preferred-citation:
   type: conference-paper
   authors:
     - family-names: "Le"
       given-names: "Bao"
+    - name: "E11 Research Contributors"
   title: "When Does Candidate Normalization Help? A Low-Resource Bahnar--Vietnamese Sentence Retrieval Study"
   collection-title: "Proceedings of the 19th Asian Conference on Intelligent Information and Database Systems (ACIIDS 2027)"
   series: "Lecture Notes in Computer Science"
