@@ -1,6 +1,5 @@
 # Bahnar–Vietnamese Sentence Retrieval: Candidate Normalization and Evaluation
 
-[![Reproduce E11 results](https://github.com/Baole13/bahnar-vietnamese-candidate-normalization/actions/workflows/reproduce.yml/badge.svg)](https://github.com/Baole13/bahnar-vietnamese-candidate-normalization/actions/workflows/reproduce.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Reproducibility: Score-Level](https://img.shields.io/badge/reproducibility-score--level-success.svg)](#quickstart)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -47,7 +46,7 @@ Every empirical table and figure reported in the paper is linked to its script a
 
 | Paper Element | Description | Reproduction Command | Primary Output File |
 | :--- | :--- | :--- | :--- |
-| **Table 1** | Data splits & candidate pool (780 queries $\times$ 780 candidates) | *Inspect metadata* | [`docs/UPSTREAM_SOURCES.md`](docs/UPSTREAM_SOURCES.md), [`results/retained_query_manifest.csv`](results/retained_query_manifest.csv) |
+| **Table 1** | Data splits & candidate pool (780 queries $\times$ 780 candidates) | *Inspect metadata* | [`results/retained_query_manifest.csv`](results/retained_query_manifest.csv) |
 | **Table 2** | Primary test retrieval (Fusion 738, $k=3 \to 748$) | `python scripts/evaluate_scores.py --check` | [`results/recomputed_test_metrics.json`](results/recomputed_test_metrics.json), [`results/method_results.csv`](results/method_results.csv) |
 | **Table 3** | Temperature grid scan ($\beta \in \{0.5, 1, 2, 5, 10\}$) | `python scripts/evaluate_scores.py` | [`results/extra_k_beta_table.csv`](results/extra_k_beta_table.csv) |
 | **Table 4 / Fig 1** | Batch subsampling stress test & Sinkhorn balancing | `python scripts/reproduce_sinkhorn_and_subsampling.py --check` | [`results/batch_stress_200.csv`](results/batch_stress_200.csv), [`results/query_batch_sensitivity_780.png`](results/query_batch_sensitivity_780.png) |
@@ -100,7 +99,6 @@ PASS: Sinkhorn rowcol beta=5 -> 769/780, beta=2 -> 764/780 on 1-to-1 pool
 
 ```text
 bahnar-vietnamese-candidate-normalization/
-├── .github/workflows/         # Automated GitHub Actions CI workflow
 ├── data/
 │   ├── scores/                # Frozen NPZ matrices (TEST_scores, train_TESTpool, VAL_scores, train_VALpool)
 │   └── metadata/              # Hash-derived query/candidate IDs and document families
@@ -113,12 +111,6 @@ bahnar-vietnamese-candidate-normalization/
 ├── tests/
 │   └── test_reproduction.py   # Regression and strict-tie unit tests (780 pool)
 ├── results/                   # Recomputed test metrics, validation summaries, per-query flags
-├── docs/
-│   ├── DATA_CARD.md           # Dataset card: size, silver pipeline, and limitations
-│   ├── EVALUATION_PROTOCOL.md # Formal evaluation definitions and tie-breaking rules
-│   ├── REPRODUCIBILITY.md     # Reproducibility scope, information boundaries, and limits
-│   ├── UPSTREAM_SOURCES.md    # Archive provenance and split construction details
-│   └── DATA_PROVENANCE_AND_RIGHTS.md # Corpus copyright notice and ethics statement
 ├── requirements.txt           # Minimum Python dependencies (numpy, scipy, scikit-learn)
 ├── CITATION.cff               # Machine-readable citation metadata
 ├── LICENSE                    # Software source code license (MIT License)
@@ -130,7 +122,7 @@ bahnar-vietnamese-candidate-normalization/
 ## ⚖️ License & Provenance Notice
 
 - **Software Code:** The evaluation and normalization code is licensed under the [MIT License](LICENSE) (Copyright (c) 2026 E11 Research Contributors).
-- **Research Scope:** Code licenses do **not** grant redistribution rights to original news articles, corpus PDFs, or proprietary model checkpoints. See [Data Provenance & Rights](docs/DATA_PROVENANCE_AND_RIGHTS.md).
+- **Research Scope:** Code licenses do **not** grant redistribution rights to original news articles, corpus PDFs, or proprietary model checkpoints. All raw newspaper text and encoder weights are withheld under third-party copyright.
 
 ---
 
