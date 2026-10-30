@@ -51,7 +51,6 @@ Every empirical table and figure reported in the paper is linked to its script a
 | **Table 2** | Primary test retrieval (Fusion 738, $k=3 \to 748$) | `python scripts/evaluate_scores.py --check` | [`results/recomputed_test_metrics.json`](results/recomputed_test_metrics.json), [`results/method_results.csv`](results/method_results.csv) |
 | **Table 3** | Temperature grid scan ($\beta \in \{0.5, 1, 2, 5, 10\}$) | `python scripts/evaluate_scores.py` | [`results/extra_k_beta_table.csv`](results/extra_k_beta_table.csv) |
 | **Table 4 / Fig 1** | Batch subsampling stress test & Sinkhorn balancing | `python scripts/reproduce_sinkhorn_and_subsampling.py --check` | [`results/batch_stress_200.csv`](results/batch_stress_200.csv), [`results/query_batch_sensitivity_780.png`](results/query_batch_sensitivity_780.png) |
-| **Table 5 / Sec 4b** | Native speaker audit (18 discordances, 70 controls) | `python scripts/analyze_human_validation.py` | [`results/human_audit_verified_from_export.json`](results/human_audit_verified_from_export.json) |
 | **Validation Selection** | End-to-end parameter search ($k=10, \beta=2$) | `python scripts/val_select.py` | [`results/val_selection_results.json`](results/val_selection_results.json) |
 
 ---
@@ -80,10 +79,7 @@ python scripts/reproduce_sinkhorn_and_subsampling.py --check
 # 5. Reproduce validation selection end-to-end
 python scripts/val_select.py
 
-# 6. Reproduce native-speaker evaluation audit
-python scripts/analyze_human_validation.py
-
-# 7. Run automated test suite & verify cryptographic SHA-256 integrity
+# 6. Run automated test suite & verify cryptographic SHA-256 integrity
 python -m unittest discover -s tests -v
 python scripts/verify_sha256.py
 ```
@@ -107,13 +103,11 @@ bahnar-vietnamese-candidate-normalization/
 ├── .github/workflows/         # Automated GitHub Actions CI workflow
 ├── data/
 │   ├── scores/                # Frozen NPZ matrices (TEST_scores, train_TESTpool, VAL_scores, train_VALpool)
-│   ├── metadata/              # Hash-derived query/candidate IDs and document families
-│   └── human_eval/            # Anonymized reviewer labels and 18-query discordance records
+│   └── metadata/              # Hash-derived query/candidate IDs and document families
 ├── scripts/
 │   ├── evaluate_scores.py     # Main score evaluation and parameter grid scanning
 │   ├── reproduce_sinkhorn_and_subsampling.py # Reproduces Sinkhorn and query-batch subsampling
 │   ├── val_select.py          # End-to-end validation selection from NPZ matrices
-│   ├── analyze_human_validation.py # Verification of reviewer paired labels
 │   ├── verify_sha256.py       # Independent SHA-256 checksum verifier
 │   └── optional_with_source_text/ # Extended scripts requiring raw licensed corpus
 ├── tests/
@@ -122,7 +116,6 @@ bahnar-vietnamese-candidate-normalization/
 ├── docs/
 │   ├── DATA_CARD.md           # Dataset card: size, silver pipeline, and limitations
 │   ├── EVALUATION_PROTOCOL.md # Formal evaluation definitions and tie-breaking rules
-│   ├── HUMAN_EVALUATION.md    # Targeted native-speaker review audit protocol
 │   ├── REPRODUCIBILITY.md     # Reproducibility scope, information boundaries, and limits
 │   ├── UPSTREAM_SOURCES.md    # Archive provenance and split construction details
 │   └── DATA_PROVENANCE_AND_RIGHTS.md # Corpus copyright notice and ethics statement
@@ -138,7 +131,6 @@ bahnar-vietnamese-candidate-normalization/
 
 - **Software Code:** The evaluation and normalization code is licensed under the [MIT License](LICENSE) (Copyright (c) 2026 E11 Research Contributors).
 - **Research Scope:** Code licenses do **not** grant redistribution rights to original news articles, corpus PDFs, or proprietary model checkpoints. See [Data Provenance & Rights](docs/DATA_PROVENANCE_AND_RIGHTS.md).
-- **Human Evaluation Data:** [Aggregated anonymized evaluations](data/human_eval/HUMAN_VALIDATION_18_RESULT.csv) are published to confirm numerical agreement across 18 discordances and 70 controls without disclosing reviewer identities or raw private forms.
 
 ---
 

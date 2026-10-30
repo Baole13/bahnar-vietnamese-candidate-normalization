@@ -23,7 +23,6 @@
 ## 3. Label Provenance & Silver Nature
 - **Alignment:** Pairs were automatically extracted and aligned from bilingual PDF archives using OCR/legacy font recovery and automated bitext alignment tools.
 - **Silver Label Constraint:** No row-level gold adjudication was performed by certified linguists across the full 5,094 pairs. Evaluation metrics measure alignment agreement against designated silver counterparts, not absolute semantic equivalence.
-- **Human Spot-Check:** A targeted post-hoc audit by two independent Bahnar native speakers on 18 discordance items confirmed 17/18 silver pairings as usable (see `docs/HUMAN_EVALUATION.md`).
 
 ---
 
