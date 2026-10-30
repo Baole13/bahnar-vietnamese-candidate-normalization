@@ -9,7 +9,6 @@ from __future__ import annotations
 import argparse, csv, json, sys
 from pathlib import Path
 import numpy as np
-import pandas as pd
 
 PROJECT = Path(__file__).resolve().parents[1]
 EXCLUDED_QUERY_ID = 'Q-e96d59ce6d0cbaf7'
@@ -112,7 +111,11 @@ def main():
                 'Sinkhorn_beta5_mean': round(float(np.mean(sink5_acc)), 2),
                 'Sinkhorn_beta2_mean': round(float(np.mean(sink2_acc)), 2),
             })
-        print(pd.DataFrame(results_table).to_string(index=False))
+        header = f"{'Fraction':<10} {'Queries':<10} {'Sinkhorn_beta5_mean':<22} {'Sinkhorn_beta2_mean':<22}"
+        print(header)
+        print("-" * len(header))
+        for row in results_table:
+            print(f"{row['Fraction']:<10} {row['Queries']:<10} {row['Sinkhorn_beta5_mean']:<22.2f} {row['Sinkhorn_beta2_mean']:<22.2f}")
 
 
 if __name__ == '__main__':

@@ -126,7 +126,7 @@ bahnar-vietnamese-candidate-normalization/
 │   ├── REPRODUCIBILITY.md     # Reproducibility scope, information boundaries, and limits
 │   ├── UPSTREAM_SOURCES.md    # Archive provenance and split construction details
 │   └── DATA_PROVENANCE_AND_RIGHTS.md # Corpus copyright notice and ethics statement
-├── requirements.txt           # Minimum Python dependencies (numpy, scipy, scikit-learn, matplotlib)
+├── requirements.txt           # Minimum Python dependencies (numpy, scipy, scikit-learn)
 ├── CITATION.cff               # Machine-readable citation metadata
 ├── LICENSE                    # Software source code license (MIT License)
 └── SHA256SUMS                 # Cryptographic verification checksums for release files
