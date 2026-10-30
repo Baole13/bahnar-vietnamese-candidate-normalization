@@ -18,7 +18,6 @@ The score matrices contain 3 channels each (`dice`, `char`, `neural_E1`), pseudo
 
 - Fine-tuning the E1 encoder and re-extracting its embedding scores from raw text.
 - Historical 55,324 pair source rebuilding, PDF font decoding, segmentation and sentence alignment.
-- Independent validation of reviewer identity, expertise, consent or the original blind protocol from non-identifiable CSV counts.
 
 The scripts under `scripts/optional_with_source_text/` have additional requirements; these inputs are not distributed here. Their presence is not a claim that score-level artifacts are sufficient for full end-to-end reproduction.
 
@@ -32,4 +31,3 @@ The scripts under `scripts/optional_with_source_text/` have additional requireme
 | Inverted Softmax β=2 (758/780) via validation selection | Retrospective validation-selected; opened-test study |
 | All other test k/β grid configurations | Post-hoc descriptive |
 | Sinkhorn score (769/780 at $\beta=5$) and batch perturbations | Post-hoc exploratory, sensitive to query batch coverage |
-| Human strict / lenient on 18 changing queries | Post-hoc aggregate spot check, not full gold |
