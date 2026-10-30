@@ -1,0 +1,8 @@
+channels,baseline,corrected_k3,gain,baseline_pct,corrected_pct
+dice,635,666,31,81.4103,85.3846
+char,634,664,30,81.2821,85.1282
+neural_E1,634,654,20,81.2821,83.8462
+dice+char,707,730,23,90.641,93.5897
+dice+neural_E1,720,749,29,92.3077,96.0256
+char+neural_E1,680,700,20,87.1795,89.7436
+dice+char+neural_E1,738,748,10,94.6154,95.8974

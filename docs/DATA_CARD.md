@@ -12,11 +12,11 @@
 
 | Split | Queries | Vietnamese Candidates | Document Families | Reference Status |
 | :--- | :---: | :---: | :---: | :---: |
-| **Training (BA48 Train)** | 3,327 | 3,327 | — | Silver (Automatic) |
-| **Validation (E09)** | 768 | 768 | — | Silver (Automatic) |
-| **Held-out Test (E11)** | 781 | 780 | 20 | Silver (Automatic) |
+| **Training (BA48 Train)** | 3,327 | 3,327 | 69 | Silver (Automatic) |
+| **Validation (E09)** | 768 | 768 | 18 | Silver (Automatic) |
+| **Held-out Test (E11)** | 780 | 780 | 20 | Silver (Automatic) |
 
-> One Vietnamese candidate is designated counterpart for two distinct queries in the held-out test split.
+> After excluding one duplicate query (`Q-e96d59ce6d0cbaf7` / `BA48-001953`) that pointed to the same candidate as `Q-6f9096449df40a3e`, the held-out test split forms an exact 1-to-1 matching pool of 780 queries and 780 candidates.
 
 ---
 

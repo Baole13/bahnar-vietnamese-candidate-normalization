@@ -14,11 +14,12 @@ __pycache__/
 local_data/
 private_annotations/
 raw_corpus/
+paper/
 *.pdf
-!paper/*.pdf
 *.xlsx
 *.pkl
 *.pt
 *.pth
 *.ckpt
+*.zip
 .DS_Store
